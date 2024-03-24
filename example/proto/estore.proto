@@ -1,0 +1,36 @@
+syntax = "proto3";
+package estore;
+
+service ProductService {
+  rpc ListProducts(ListProductsRequest) returns (ListProductsResponse);
+}
+
+message ListProductsRequest {
+}
+
+message ListProductsResponse {
+  repeated Product products = 1;
+}
+
+message Product {
+  string id = 1;
+  string name = 2;
+}
+
+
+service OrderService {
+  rpc GetMyOrders(GetMyOrdersRequests) returns (GetMyOrdersResponse);
+}
+
+message GetMyOrdersRequests {
+}
+
+message GetMyOrdersResponse {
+  repeated Order orders = 1;
+}
+
+message Order {
+  string id = 1;
+  string label = 2;
+  int32 amount = 3;
+}

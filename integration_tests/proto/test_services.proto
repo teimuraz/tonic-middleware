@@ -1,0 +1,28 @@
+syntax = "proto3";
+package test_services;
+
+service PublicService {
+  rpc PublicMethod(PublicMethodRequest) returns (PublicMethodResponse);
+}
+
+message PublicMethodRequest {
+  string message = 1;
+}
+message PublicMethodResponse {
+  string message = 1;
+}
+
+
+service ProtectedService {
+  rpc ProtectedMethod(ProtectedMethodRequest) returns (ProtectedMethodResponse);
+}
+
+message ProtectedMethodRequest {
+  string message = 1;
+}
+message ProtectedMethodResponse {
+  string message = 1;
+  string user_id = 2;
+}
+
+
