@@ -353,7 +353,7 @@ async fn test_interceptor_and_middleware_combined_for_individual_service() {
         .expect("Method response");
 
     let actions: Vec<Action> = flow.read_actions();
-    assert_eq!(actions.len(), 5);
+    assert_eq!(actions.len(), 3);
     assert_eq!(actions[0], Action::Middleware1Before);
     assert_eq!(actions[1], Action::AuthInterceptor);
     assert_eq!(actions[2], Action::Middleware1After);

@@ -40,23 +40,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     Server::builder()
         // Interceptor can be added as a layer so all services will be intercepted
         // .layer(RequestInterceptorLayer::new(auth_interceptor.clone()))
-
         // Middleware can also be added as a layer, so it will apply to all services
         // .layer(MiddlewareLayer::new(metrics_middleware))
-
         // Middleware can be added to individual service
         .add_service(MiddlewareFor::new(
             grpc_products_service,
             metrics_middleware,
         ))
-
         // Interceptor can be added to individual service as well
         .add_service(InterceptorFor::new(grpc_orders_service, auth_interceptor))
-
         // Middlewares and interceptors can be combined, in any order.
         // Outermost will be executed first
         // .add_service(MiddlewareFor::new(InterceptorFor::new(grpc_orders_service.clone(), auth_interceptor.clone()), metrics_middleware.clone()))
-
         .serve(addr)
         .await?;
     Ok(())

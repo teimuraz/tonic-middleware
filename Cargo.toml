@@ -3,11 +3,11 @@ workspace = { members = ["example", "integration_tests"] }
 name = "tonic-middleware"
 authors = ["Teimuraz Kantariya <teimuraz.kantaria@gmail.com>"]
 categories = ["web-programming", "network-programming", "asynchronous", "authentication"]
-description = "Async middleware for Tonic services"
-documentation = ""
+description = "Async middleware and interceptor for Tonic services"
+documentation = "https://github.com/teimuraz/tonic-middleware"
 edition = "2021"
 homepage = "https://github.com/teimuraz/tonic-middleware"
-keywords = ["middleware", "async", "grpc", "tonic", "protobuf"]
+keywords = ["middleware", "interceptor", "tonic", "async", "grpc"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/teimuraz/tonic-middleware"

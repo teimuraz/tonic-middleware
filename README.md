@@ -8,20 +8,20 @@
 - [Introduction](#introduction)
 - [Usage](#usage)
   - [Define request interceptor and middleware](#define-our-request-interceptor-and-middleware)
-  - [Apply request interceptor for individual service](#apply-request-interceptor-for-individual-service)
+  - [Apply request interceptor to individual service](#apply-request-interceptor-to-individual-service)
   - [Apply request interceptor to all services using layer](#apply-request-interceptor-to-all-services-using-layer)
   - [Apply middleware to individual services](#apply-middleware-to-individual-services)
   - [Apply middleware to all services through layer](#apply-middleware-to-all-services-through-layer)
   - [Combine interceptor and middleware for individual services](#combine-interceptor-and-middleware-for-individual-services)
   - [Apply interceptor and middleware to all services through layer](#apply-interceptor-and-middleware-to-all-services-through-layer)
-  - Full [example](https://github.com/teimuraz/tonic-middleware/tree/tests/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/tests/integration_tests/tests/tests.rs)
+  - Full [example](https://github.com/teimuraz/tonic-middleware/tree/main/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/main/integration_tests/tests/tests.rs)
 
 - [Motivation](#contributing)
 - [License](#license)
 
 # Introduction
 
-`tonic-middleware` is a Rust library that extends tonic-based gRPC services, 
+`tonic-middleware` is a Rust library that extends [tonic](https://github.com/hyperium/tonic)-based [gRPC](https://grpc.io/) services, 
 enabling **asynchronous** inspection and modification and potentially rejecting of incoming requests.
 It also enables the addition of custom logic through middleware, both before and after the actual service call.
 
@@ -44,20 +44,20 @@ The library provides two key tools:
 Both interceptors and middlewares can be applied to individual service, or to all services
 through Tonic's layer.
 
-[...Table of content]
-
 ## Usage
 
-add to Cargo.toml
+Add to Cargo.toml
 ```
 tonic-middleware = "0.1.0"
 ```
 
-See full [example](https://github.com/teimuraz/tonic-middleware/tree/tests/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/tests/integration_tests/tests/tests.rs)
+See full [example](https://github.com/teimuraz/tonic-middleware/tree/main/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/main/integration_tests/tests/tests.rs)
 
 ### Define our request interceptor and middleware
 
-Simple request interceptor that uses AuthService to perform authentication.
+#### To create request interceptor, we need to implement `RequestInterceptor` trait from the library.
+
+Simple request interceptor that uses some custom `AuthService` injected in to perform authentication.
 We need to implement `RequestInterceptor` for our custom (`AuthInterceptor`) intercept.
 ```rust
 #[derive(Clone)]
@@ -89,7 +89,9 @@ impl<A: AuthService> RequestInterceptor for AuthInterceptor<A> {
 }
 ```
 
-Simple metrics middleware that outputs request time.
+#### To create middleware, we need to implement 'Middleware' trait from the library.
+
+Metrics middleware that measures request time and output to stdout.
 We need to implement `Middleware` for our custom (`MetricsMiddleware`) middleware.
 ```rust
 
@@ -120,7 +122,7 @@ where
 
 ```
 
-### Apply request interceptor for individual service
+### Apply request interceptor to individual service
 ```rust
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -130,15 +132,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         auth_service: AuthServiceImpl::default(),
     };
 
+    // Grpc service
     let products_service = Products::default();
     let grpc_products_service = ProductServiceServer::new(products_service);
 
+    // Grpc service
     let orders_service = Orders::default();
     let grpc_orders_service = OrderServiceServer::new(orders_service);
 
     println!("Grpc server listening on {}", addr);
 
     Server::builder()
+        // No interceptor applied
         .add_service(grpc_products_service)
         // Added interceptor to single service
         .add_service(InterceptorFor::new(grpc_orders_service, auth_interceptor))
@@ -157,6 +162,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     Server::builder()
         // Interceptor can be added as a layer so all services will be intercepted
         .layer(RequestInterceptorLayer::new(auth_interceptor.clone()))
+        .add_service(grpc_products_service)
+        .add_service(grpc_orders_service)
         .serve(addr)
         .await?;
     // ...
@@ -172,9 +179,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
  Server::builder()
          // Middleware can be added to individual service
          .add_service(MiddlewareFor::new(
-          grpc_products_service,
-          metrics_middleware,
+            grpc_products_service,
+            metrics_middleware,
          ))
+         // No middleware applied
+         .add_service(grpc_orders_service)
 
          .serve(addr)
          .await?;
@@ -189,8 +198,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
  // ...
  Server::builder()
-         // Middleware can also be added as a layer, so it will apply to all services
+         // Middleware can also be added as a layer, so it will apply to 
+         // all services
          .layer(MiddlewareLayer::new(metrics_middleware))
+         
+         .add_service(grpc_products_service)
+         .add_service(grpc_orders_service)
          .serve(addr)
          .await?;
  // ...
@@ -212,6 +225,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 InterceptorFor::new(grpc_orders_service.clone(), auth_interceptor.clone()),
                 metrics_middleware.clone(),
             ))
+        .add_service(grpc_products_service)    
         .await?;
     // ...
 }
@@ -228,6 +242,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
          .layer(RequestInterceptorLayer::new(auth_interceptor.clone()))
          // Middleware can also be added as a layer, so it will apply to all services
          .layer(MiddlewareLayer::new(metrics_middleware))
+         
+         .add_service(grpc_products_service)
+         .add_service(grpc_orders_service)
          .await?;
  // ...
 }
@@ -236,5 +253,5 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 
 ## Motivation
-Tonic provides a solid foundation for developing gRPC services in Rust, and while it offers a range of features, extending it with asynchronous interceptors and middleware requires a bit more effort. That's where tonic-middleware comes in,
-this library simplifies adding custom asynchronous processing to the Tonic service stack.
+Tonic provides a solid foundation for developing gRPC services in Rust, and while it offers a range of features, extending it with asynchronous interceptors and middleware requires a bit more effort. That's where `tonic-middleware` comes in,
+this library simplifies adding custom asynchronous processing to the [tonic](https://github.com/hyperium/tonic) service stack.
