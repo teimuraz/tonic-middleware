@@ -1,7 +1,7 @@
 # tonic-middleware
 
 [![Crates.io](https://img.shields.io/crates/v/tonic-middleware)](https://crates.io/crates/tonic-middleware)
-[![Documentation](https://docs.rs/tonic-middleware/badge.svg)](https://docs.rs/tonic-async-interceptor)
+[![Documentation](https://docs.rs/tonic-middleware/badge.svg)](https://docs.rs/tonic-middleware/latest/tonic_middleware)
 [![Crates.io](https://img.shields.io/crates/l/tonic-middleware)](LICENSE)
 
 ## Table of Contents
@@ -47,7 +47,7 @@ through Tonic's layer.
 
 Add to Cargo.toml
 ```
-tonic-middleware = "0.1.1"
+tonic-middleware = "0.1.2"
 ```
 
 See full [example](https://github.com/teimuraz/tonic-middleware/tree/main/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/main/integration_tests/tests/tests.rs)
