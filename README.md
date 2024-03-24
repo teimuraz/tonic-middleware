@@ -1,6 +1,6 @@
 # tonic-middleware
 
-[![Crates.io](https://img.shields.io/crates/v/tonic-middleware-interceptor)](https://crates.io/crates/tonic-middleware)
+[![Crates.io](https://img.shields.io/crates/v/tonic-middleware)](https://crates.io/crates/tonic-middleware)
 [![Documentation](https://docs.rs/tonic-middleware/badge.svg)](https://docs.rs/tonic-async-interceptor)
 [![Crates.io](https://img.shields.io/crates/l/tonic-middleware)](LICENSE)
 
@@ -16,8 +16,7 @@
   - [Apply interceptor and middleware to all services through layer](#apply-interceptor-and-middleware-to-all-services-through-layer)
   - Full [example](https://github.com/teimuraz/tonic-middleware/tree/main/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/main/integration_tests/tests/tests.rs)
 
-- [Motivation](#contributing)
-- [License](#license)
+- [Motivation](#motivation)
 
 # Introduction
 
@@ -48,7 +47,7 @@ through Tonic's layer.
 
 Add to Cargo.toml
 ```
-tonic-middleware = "0.1.0"
+tonic-middleware = "0.1.1"
 ```
 
 See full [example](https://github.com/teimuraz/tonic-middleware/tree/main/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/main/integration_tests/tests/tests.rs)
