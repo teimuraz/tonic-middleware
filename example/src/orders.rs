@@ -11,7 +11,7 @@ impl OrderService for Orders {
         &self,
         request: Request<GetMyOrdersRequests>,
     ) -> Result<Response<GetMyOrdersResponse>, Status> {
-        // user_id set that is set request interceptor
+        // user_id that is set within request interceptor
         let user_id = request.metadata().get("user_id");
         println!("User Id {}", user_id.unwrap().to_str().unwrap());
         Ok(Response::new(GetMyOrdersResponse {
