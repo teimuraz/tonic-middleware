@@ -9,6 +9,7 @@ use crate::products::Products;
 use crate::proto::estore::order_service_server::OrderServiceServer;
 use crate::proto::estore::product_service_server::ProductServiceServer;
 use std::net::SocketAddr;
+use std::sync::Arc;
 use std::time::Instant;
 use tonic::body::BoxBody;
 use tonic::codegen::http::{HeaderValue, Request, Response};
@@ -24,7 +25,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr: SocketAddr = "[::1]:50051".parse().unwrap();
 
     let auth_interceptor = AuthInterceptor {
-        auth_service: AuthServiceImpl::default(),
+        auth_service: Arc::new(AuthServiceImpl::default()),
     };
 
     let metrics_middleware = MetricsMiddleware::default();
@@ -59,7 +60,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 #[derive(Clone)]
 pub struct AuthInterceptor<A: AuthService> {
-    pub auth_service: A,
+    pub auth_service: Arc<A>,
 }
 
 #[async_trait]
