@@ -22,6 +22,8 @@ use tower::Layer;
 ///
 /// * `S`: A service bound that defines the requirements for the service being wrapped by
 /// the middleware.
+///
+/// See [examples on GitHub](https://github.com/teimuraz/tonic-middleware/tree/main/example)
 #[async_trait]
 pub trait Middleware<S>
 where

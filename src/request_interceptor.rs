@@ -18,6 +18,8 @@ use tower::Layer;
 /// If your requirements extend beyond request interception, and you need to interact with both the
 /// request and response or to perform actions after the service call has been made, you should
 /// consider implementing `Middleware`.
+///
+/// See [examples on GitHub](https://github.com/teimuraz/tonic-middleware/tree/main/example)
 
 #[async_trait]
 pub trait RequestInterceptor {
