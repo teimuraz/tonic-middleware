@@ -11,7 +11,7 @@ keywords = ["middleware", "interceptor", "tonic", "async", "grpc"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/teimuraz/tonic-middleware"
-version = "0.1.3"
+version = "0.1.4"
 
 [dependencies]
 tonic = "0.11.0"

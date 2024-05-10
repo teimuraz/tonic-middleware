@@ -47,7 +47,7 @@ through Tonic's layer.
 
 Add to Cargo.toml
 ```
-tonic-middleware = "0.1.3"
+tonic-middleware = "0.1.4"
 ```
 
 See full [example](https://github.com/teimuraz/tonic-middleware/tree/main/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/main/integration_tests/tests/tests.rs)
