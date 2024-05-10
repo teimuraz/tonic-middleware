@@ -52,7 +52,7 @@ where
 ///
 /// * `S`: The service that this middleware is wrapping.
 /// * `M`: The middleware that is being applied to the service.
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct MiddlewareFor<S, M>
 where
     S: ServiceBound,
@@ -109,7 +109,7 @@ where
 
 /// `MiddlewareLayer` provides a way to wrap services with a specific middleware using
 /// the tower `Layer` trait
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct MiddlewareLayer<M> {
     middleware: M,
 }

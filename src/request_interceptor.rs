@@ -44,7 +44,7 @@ pub trait RequestInterceptor {
 ///
 /// * `S`: The service being wrapped.
 /// * `I`: The `RequestInterceptor` that will preprocess the requests.
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct InterceptorFor<S, I>
 where
     I: RequestInterceptor,
@@ -110,7 +110,7 @@ where
 /// # Type Parameters
 ///
 /// * `I`: The `RequestInterceptor` implementation.
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct RequestInterceptorLayer<I> {
     interceptor: I,
 }
