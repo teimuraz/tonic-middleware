@@ -45,10 +45,10 @@ through Tonic's layer.
 
 ## Tonic versions compatability
 
-| tonic version | tonic-middleware version |
-|---------------|--------------------------|
-| 0.11          | 0.14                     |
-| 0.12          | 0.2.0                    |
+| tonic version | tonic-middleware version | Notes                                                                                                                                                                     |
+|---------------|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 0.11          | 0.14                     |                                                                                                                                                                           |
+| 0.12          | 0.2.0                    | Breaking changes <br/> resulting from breaking changes in tonic. <br/>See [changelog](https://github.com/teimuraz/tonic-middleware/releases/tag/v0.2.0) for more details. |
 
 
 ## Usage
