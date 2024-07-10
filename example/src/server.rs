@@ -13,7 +13,7 @@ use std::sync::Arc;
 use std::time::Instant;
 use tonic::body::BoxBody;
 use tonic::codegen::http::{HeaderValue, Request, Response};
-use tonic::transport::{Body, Server};
+use tonic::transport::Server;
 use tonic::{async_trait, Status};
 use tonic_middleware::{
     InterceptorFor, Middleware, MiddlewareFor, MiddlewareLayer, RequestInterceptor,
@@ -65,7 +65,7 @@ pub struct AuthInterceptor<A: AuthService> {
 
 #[async_trait]
 impl<A: AuthService> RequestInterceptor for AuthInterceptor<A> {
-    async fn intercept(&self, mut req: Request<Body>) -> Result<Request<Body>, Status> {
+    async fn intercept(&self, mut req: Request<BoxBody>) -> Result<Request<BoxBody>, Status> {
         match req.headers().get("authorization").map(|v| v.to_str()) {
             Some(Ok(token)) => {
                 // Get user id from the token
@@ -97,7 +97,7 @@ where
 {
     async fn call(
         &self,
-        req: Request<Body>,
+        req: Request<BoxBody>,
         mut service: S,
     ) -> Result<Response<BoxBody>, S::Error> {
         let start_time = Instant::now();
