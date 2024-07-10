@@ -1,6 +1,6 @@
 [package]
 name = "integration_tests"
-version = "0.1.4"
+version = "0.2.0"
 edition = "2021"
 
 [lib]
@@ -8,14 +8,14 @@ path = "src/lib.rs"
 
 [dependencies]
 tokio = { version = "1.36.0",  features = ["rt-multi-thread", "macros"] }
-tonic = "0.11.0"
-prost = "0.12.3"
+tonic = "0.12.0"
+prost = "0.13.1"
 
 [dependencies.tonic-middleware]
 path = ".."
 
 [build-dependencies]
-tonic-build = "0.11"
+tonic-build = "0.12.0"
 
 [dev-dependencies]
 tokio = { version = "1.36.0", features = ["full", "test-util"] }

@@ -8,17 +8,16 @@ pub use request_interceptor::RequestInterceptorLayer;
 use tonic::body::BoxBody;
 use tonic::codegen::http::{Request, Response};
 use tonic::codegen::Service;
-use tonic::transport::Body;
 
 mod middleware;
 mod request_interceptor;
 
 pub trait ServiceBound:
-    Service<Request<Body>, Response = Response<BoxBody>> + Send + Clone + 'static
+    Service<Request<BoxBody>, Response = Response<BoxBody>> + Send + Clone + 'static
 {
 }
 
 impl<T> ServiceBound for T where
-    T: Service<Request<Body>, Response = Response<BoxBody>> + Send + Clone + 'static
+    T: Service<Request<BoxBody>, Response = Response<BoxBody>> + Send + Clone + 'static
 {
 }

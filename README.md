@@ -6,6 +6,7 @@
 
 ## Table of Contents
 - [Introduction](#introduction)
+- [Tonic versions compatability](#tonic-versions-compatability)
 - [Usage](#usage)
   - [Define request interceptor and middleware](#define-our-request-interceptor-and-middleware)
   - [Apply request interceptor to individual service](#apply-request-interceptor-to-individual-service)
@@ -15,7 +16,6 @@
   - [Combine interceptor and middleware for individual services](#combine-interceptor-and-middleware-for-individual-services)
   - [Apply interceptor and middleware to all services through layer](#apply-interceptor-and-middleware-to-all-services-through-layer)
   - Full [example](https://github.com/teimuraz/tonic-middleware/tree/main/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/main/integration_tests/tests/tests.rs)
-
 - [Motivation](#motivation)
 
 # Introduction
@@ -43,11 +43,19 @@ The library provides two key tools:
 Both interceptors and middlewares can be applied to individual service, or to all services
 through Tonic's layer.
 
+## Tonic versions compatability
+
+| tonic version | tonic-middleware version |
+|---------------|--------------------------|
+| 0.11          | 0.14                     |
+| 0.12          | 0.2.0                    |
+
+
 ## Usage
 
 Add to Cargo.toml
 ```
-tonic-middleware = "0.1.4"
+tonic-middleware = "0.2.0"
 ```
 
 See full [example](https://github.com/teimuraz/tonic-middleware/tree/main/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/main/integration_tests/tests/tests.rs)
@@ -66,7 +74,7 @@ pub struct AuthInterceptor<A: AuthService> {
 
 #[async_trait]
 impl<A: AuthService> RequestInterceptor for AuthInterceptor<A> {
-    async fn intercept(&self, mut req: Request<Body>) -> Result<Request<Body>, Status> {
+    async fn intercept(&self, mut req: Request<BoxBody>) -> Result<Request<BoxBody>, Status> {
         match req.headers().get("authorization").map(|v| v.to_str()) {
             Some(Ok(token)) => {
                 // Get user id from the token
