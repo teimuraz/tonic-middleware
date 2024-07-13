@@ -60,13 +60,22 @@ tonic-middleware = "0.2.0"
 
 See full [example](https://github.com/teimuraz/tonic-middleware/tree/main/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/main/integration_tests/tests/tests.rs)
 
+
 ### Define our request interceptor and middleware
 
 #### To create request interceptor, we need to implement `RequestInterceptor` trait from the library.
+### Note:
+> Please use `tonic::codegen::http::{Request, Response}` (which are just re-exported from `http` crate by tonic, i.e. `http:{Request, Response}`)
+> instead of `tonic::{Request, Response}` in  interceptors and middlewares.
+
 
 Simple request interceptor that uses some custom `AuthService` injected in to perform authentication.
 We need to implement `RequestInterceptor` for our custom (`AuthInterceptor`) intercept.
 ```rust
+use tonic::codegen::http::Request; // Use this instead of tonic::Request in Interceptor!
+use tonic::codegen::http::Respons; // Use this instead of tonic::Response in Interceptor!
+...
+
 #[derive(Clone)]
 pub struct AuthInterceptor<A: AuthService> {
     pub auth_service: A,
@@ -101,6 +110,9 @@ impl<A: AuthService> RequestInterceptor for AuthInterceptor<A> {
 Metrics middleware that measures request time and output to stdout.
 We need to implement `Middleware` for our custom (`MetricsMiddleware`) middleware.
 ```rust
+use tonic::codegen::http::Request; // Use this instead of tonic::Request in Middleware!
+use tonic::codegen::http::Response; // Use this instead of tonic::Response in Middleware!
+...
 
 #[derive(Default, Clone)]
 pub struct MetricsMiddleware;
