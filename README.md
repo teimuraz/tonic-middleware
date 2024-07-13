@@ -65,7 +65,8 @@ See full [example](https://github.com/teimuraz/tonic-middleware/tree/main/exampl
 
 #### To create request interceptor, we need to implement `RequestInterceptor` trait from the library.
 ### Note:
-> Please use `tonic::codegen::http::{Request, Response}` instead of `tonic::{Request, Response}` in  interceptors and middlewares.
+> Please use `tonic::codegen::http::{Request, Response}` (which are just re-exported from `http` crate by tonic)
+> instead of `tonic::{Request, Response}` in  interceptors and middlewares.
 
 
 Simple request interceptor that uses some custom `AuthService` injected in to perform authentication.
