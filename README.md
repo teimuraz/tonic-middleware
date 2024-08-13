@@ -47,7 +47,7 @@ through Tonic's layer.
 
 | tonic version | tonic-middleware version | Notes                                                                                                                                                                     |
 |---------------|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 0.11          | 0.14                     |                                                                                                                                                                           |
+| 0.11          | 0.1.4                    |                                                                                                                                                                           |
 | 0.12          | 0.2.0                    | Breaking changes <br/> resulting from breaking changes in tonic. <br/>See [changelog](https://github.com/teimuraz/tonic-middleware/releases/tag/v0.2.0) for more details. |
 
 
