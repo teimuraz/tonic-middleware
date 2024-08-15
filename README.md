@@ -48,14 +48,14 @@ through Tonic's layer.
 | tonic version | tonic-middleware version | Notes                                                                                                                                                                     |
 |---------------|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 0.11          | 0.1.4                    |                                                                                                                                                                           |
-| 0.12          | 0.2.0                    | Breaking changes <br/> resulting from breaking changes in tonic. <br/>See [changelog](https://github.com/teimuraz/tonic-middleware/releases/tag/v0.2.0) for more details. |
+| 0.12.x        | 0.2.x                    | Breaking changes <br/> resulting from breaking changes in tonic. <br/>See [changelog](https://github.com/teimuraz/tonic-middleware/releases/tag/v0.2.0) for more details. |
 
 
 ## Usage
 
 Add to Cargo.toml
 ```
-tonic-middleware = "0.2.0"
+tonic-middleware = "0.2.1"
 ```
 
 See full [example](https://github.com/teimuraz/tonic-middleware/tree/main/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/main/integration_tests/tests/tests.rs)
