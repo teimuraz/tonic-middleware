@@ -73,7 +73,7 @@ Simple request interceptor that uses some custom `AuthService` injected in to pe
 We need to implement `RequestInterceptor` for our custom (`AuthInterceptor`) intercept.
 ```rust
 use tonic::codegen::http::Request; // Use this instead of tonic::Request in Interceptor!
-use tonic::codegen::http::Respons; // Use this instead of tonic::Response in Interceptor!
+use tonic::codegen::http::Response; // Use this instead of tonic::Response in Interceptor!
 ...
 
 #[derive(Clone)]
