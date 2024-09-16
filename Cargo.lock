@@ -208,7 +208,7 @@ dependencies = [
  "tokio",
  "tonic",
  "tonic-build",
- "tonic-middleware 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tonic-middleware 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -500,14 +500,14 @@ dependencies = [
 
 [[package]]
 name = "integration_tests"
-version = "0.2.1"
+version = "0.2.2"
 dependencies = [
  "prost",
  "serial_test",
  "tokio",
  "tonic",
  "tonic-build",
- "tonic-middleware 0.2.1",
+ "tonic-middleware 0.2.2",
 ]
 
 [[package]]
@@ -1064,9 +1064,9 @@ dependencies = [
 
 [[package]]
 name = "tonic"
-version = "0.12.1"
+version = "0.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "38659f4a91aba8598d27821589f5db7dddd94601e7a01b1e485a50e5484c7401"
+checksum = "c6f6ba989e4b2c58ae83d862d3a3e27690b6e3ae630d0deb59f3697f32aa88ad"
 dependencies = [
  "async-stream",
  "async-trait",
@@ -1094,9 +1094,9 @@ dependencies = [
 
 [[package]]
 name = "tonic-build"
-version = "0.12.1"
+version = "0.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "568392c5a2bd0020723e3f387891176aabafe36fd9fcd074ad309dfa0c8eb964"
+checksum = "fe4ee8877250136bd7e3d2331632810a4df4ea5e004656990d8d66d2f5ee8a67"
 dependencies = [
  "prettyplease",
  "proc-macro2",
@@ -1107,7 +1107,7 @@ dependencies = [
 
 [[package]]
 name = "tonic-middleware"
-version = "0.2.1"
+version = "0.2.2"
 dependencies = [
  "async-trait",
  "futures-util",
@@ -1117,9 +1117,9 @@ dependencies = [
 
 [[package]]
 name = "tonic-middleware"
-version = "0.2.1"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b4a200bd1d9bb907c62531e440a764072fc00c4e9e24b4904e77a066edb54a3f"
+checksum = "eae160de0558819a43ca1d4379a34d33d70987eba2117e9301dbff46818befe1"
 dependencies = [
  "async-trait",
  "futures-util",
