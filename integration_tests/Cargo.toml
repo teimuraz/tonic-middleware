@@ -1,6 +1,6 @@
 [package]
 name = "integration_tests"
-version = "0.2.2"
+version = "0.2.3"
 edition = "2021"
 
 [lib]
@@ -15,7 +15,7 @@ prost = "0.13.1"
 path = ".."
 
 [build-dependencies]
-tonic-build = "0.12.2"
+tonic-build = "0.12.3"
 
 [dev-dependencies]
 tokio = { version = "1.36.0", features = ["full", "test-util"] }

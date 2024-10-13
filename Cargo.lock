@@ -208,7 +208,7 @@ dependencies = [
  "tokio",
  "tonic",
  "tonic-build",
- "tonic-middleware 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tonic-middleware 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -500,14 +500,14 @@ dependencies = [
 
 [[package]]
 name = "integration_tests"
-version = "0.2.2"
+version = "0.2.3"
 dependencies = [
  "prost",
  "serial_test",
  "tokio",
  "tonic",
  "tonic-build",
- "tonic-middleware 0.2.2",
+ "tonic-middleware 0.2.3",
 ]
 
 [[package]]
@@ -1040,9 +1040,9 @@ dependencies = [
 
 [[package]]
 name = "tokio-stream"
-version = "0.1.15"
+version = "0.1.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "267ac89e0bec6e691e5813911606935d77c476ff49024f98abcea3e7b15e37af"
+checksum = "4f4e6ce100d0eb49a2734f8c0812bcd324cf357d21810932c5df6b96ef2b86f1"
 dependencies = [
  "futures-core",
  "pin-project-lite",
@@ -1064,9 +1064,9 @@ dependencies = [
 
 [[package]]
 name = "tonic"
-version = "0.12.2"
+version = "0.12.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c6f6ba989e4b2c58ae83d862d3a3e27690b6e3ae630d0deb59f3697f32aa88ad"
+checksum = "877c5b330756d856ffcc4553ab34a5684481ade925ecc54bcd1bf02b1d0d4d52"
 dependencies = [
  "async-stream",
  "async-trait",
@@ -1094,20 +1094,21 @@ dependencies = [
 
 [[package]]
 name = "tonic-build"
-version = "0.12.2"
+version = "0.12.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fe4ee8877250136bd7e3d2331632810a4df4ea5e004656990d8d66d2f5ee8a67"
+checksum = "9557ce109ea773b399c9b9e5dca39294110b74f1f342cb347a80d1fce8c26a11"
 dependencies = [
  "prettyplease",
  "proc-macro2",
  "prost-build",
+ "prost-types",
  "quote",
  "syn",
 ]
 
 [[package]]
 name = "tonic-middleware"
-version = "0.2.2"
+version = "0.2.3"
 dependencies = [
  "async-trait",
  "futures-util",
@@ -1117,9 +1118,9 @@ dependencies = [
 
 [[package]]
 name = "tonic-middleware"
-version = "0.2.2"
+version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eae160de0558819a43ca1d4379a34d33d70987eba2117e9301dbff46818befe1"
+checksum = "dd11ca7918ee9f94e217285ace20caf6187476f399244ba8438cdc92ce665236"
 dependencies = [
  "async-trait",
  "futures-util",
