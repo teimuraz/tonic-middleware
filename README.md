@@ -125,7 +125,7 @@ where
 {
     async fn call(
         &self,
-        req: Request<Body>,
+        req: Request<BoxBody>,
         mut service: S,
     ) -> Result<Response<BoxBody>, S::Error> {
         let start_time = Instant::now();
