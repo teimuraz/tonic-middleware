@@ -20,7 +20,7 @@
 
 # Introduction
 
-`tonic-middleware` is a Rust library that extends [tonic](https://github.com/hyperium/tonic)-based [gRPC](https://grpc.io/) services, 
+`tonic-middleware` is a Rust library that extends [tonic](https://github.com/hyperium/tonic)-based [gRPC](https://grpc.io/) services,
 enabling **asynchronous** inspection and modification and potentially rejecting of incoming requests.
 It also enables the addition of custom logic through middleware, both before and after the actual service call.
 
@@ -35,10 +35,10 @@ The library provides two key tools:
 
 
 - **Middleware**
- 
+
   If your requirements extend beyond request interception, and you need to interact with both the
  request and response or to perform actions after the service call has been made, you should
- consider implementing `Middleware`.  
+ consider implementing `Middleware`.
 
 Both interceptors and middlewares can be applied to individual service, or to all services
 through Tonic's layer.
@@ -49,13 +49,14 @@ through Tonic's layer.
 |---------------|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 0.11          | 0.1.4                    |                                                                                                                                                                           |
 | 0.12.x        | 0.2.x                    | Breaking changes <br/> resulting from breaking changes in tonic. <br/>See [changelog](https://github.com/teimuraz/tonic-middleware/releases/tag/v0.2.0) for more details. |
+| 0.13.x        | 0.3.x                    | Breaking changes <br/> resulting from breaking changes in tonic.                                                                                                          |
 
 
 ## Usage
 
 Add to Cargo.toml
 ```
-tonic-middleware = "0.2.3"
+tonic-middleware = "0.3.0"
 ```
 
 See full [example](https://github.com/teimuraz/tonic-middleware/tree/main/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/main/integration_tests/tests/tests.rs)
@@ -83,7 +84,7 @@ pub struct AuthInterceptor<A: AuthService> {
 
 #[async_trait]
 impl<A: AuthService> RequestInterceptor for AuthInterceptor<A> {
-    async fn intercept(&self, mut req: Request<BoxBody>) -> Result<Request<BoxBody>, Status> {
+    async fn intercept(&self, mut req: Request<Body>) -> Result<Request<Body>, Status> {
         match req.headers().get("authorization").map(|v| v.to_str()) {
             Some(Ok(token)) => {
                 // Get user id from the token
@@ -125,9 +126,9 @@ where
 {
     async fn call(
         &self,
-        req: Request<BoxBody>,
+        req: Request<Body>,
         mut service: S,
-    ) -> Result<Response<BoxBody>, S::Error> {
+    ) -> Result<Response<Body>, S::Error> {
         let start_time = Instant::now();
         // Call the service. You can also intercept request from middleware.
         let result = service.call(req).await?;
@@ -217,10 +218,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
  // ...
  Server::builder()
-         // Middleware can also be added as a layer, so it will apply to 
+         // Middleware can also be added as a layer, so it will apply to
          // all services
          .layer(MiddlewareLayer::new(metrics_middleware))
-         
+
          .add_service(grpc_products_service)
          .add_service(grpc_orders_service)
          .serve(addr)
@@ -244,7 +245,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 InterceptorFor::new(grpc_orders_service.clone(), auth_interceptor.clone()),
                 metrics_middleware.clone(),
             ))
-        .add_service(grpc_products_service)    
+        .add_service(grpc_products_service)
         .await?;
     // ...
 }
@@ -261,7 +262,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
          .layer(RequestInterceptorLayer::new(auth_interceptor.clone()))
          // Middleware can also be added as a layer, so it will apply to all services
          .layer(MiddlewareLayer::new(metrics_middleware))
-         
+
          .add_service(grpc_products_service)
          .add_service(grpc_orders_service)
          .await?;

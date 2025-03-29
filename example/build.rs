@@ -9,6 +9,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .include_file("util.rs")
         .out_dir(out_dir.clone())
         .file_descriptor_set_path(out_dir.clone().join("estore.bin"))
-        .compile(&["proto/estore.proto"], &["proto"])?;
+        .compile_protos(&["proto/estore.proto"], &["proto"])?;
     Ok(())
 }

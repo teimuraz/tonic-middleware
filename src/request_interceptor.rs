@@ -3,7 +3,7 @@ use std::task::{Context, Poll};
 use crate::ServiceBound;
 use async_trait::async_trait;
 use futures_util::future::BoxFuture;
-use tonic::body::BoxBody;
+use tonic::body::Body;
 use tonic::codegen::http::Request;
 use tonic::codegen::Service;
 use tonic::server::NamedService;
@@ -34,7 +34,7 @@ pub trait RequestInterceptor {
     ///
     /// Returns either the potentially modified request for further processing, or a `Status`
     /// error to halt processing with a specific error response.
-    async fn intercept(&self, req: Request<BoxBody>) -> Result<Request<BoxBody>, Status>;
+    async fn intercept(&self, req: Request<Body>) -> Result<Request<Body>, Status>;
 }
 
 /// `InterceptorFor` wraps a service with a `RequestInterceptor`, enabling request-level
@@ -68,7 +68,7 @@ where
     }
 }
 
-impl<S, I> Service<Request<BoxBody>> for InterceptorFor<S, I>
+impl<S, I> Service<Request<Body>> for InterceptorFor<S, I>
 where
     S: ServiceBound,
     S::Future: Send,
@@ -82,7 +82,7 @@ where
         self.inner.poll_ready(cx)
     }
 
-    fn call(&mut self, req: Request<BoxBody>) -> Self::Future {
+    fn call(&mut self, req: Request<Body>) -> Self::Future {
         let interceptor = self.interceptor.clone();
         let mut inner = self.inner.clone();
         Box::pin(async move {
