@@ -14,7 +14,7 @@ use tower::Layer;
 /// incoming requests within your service pipeline. This trait is particularly useful for
 /// performing operations such as authentication, enriching requests with additional metadata,
 /// or rejecting  requests based on certain criteria before they reach the service logic.
-
+///
 /// If your requirements extend beyond request interception, and you need to interact with both the
 /// request and response or to perform actions after the service call has been made, you should
 /// consider implementing `Middleware`.
