@@ -11,7 +11,7 @@ use crate::proto::estore::product_service_server::ProductServiceServer;
 use std::net::SocketAddr;
 use std::sync::Arc;
 use std::time::Instant;
-use tonic::body::BoxBody;
+use tonic::body::Body;
 use tonic::codegen::http::{HeaderValue, Request, Response};
 use tonic::transport::Server;
 use tonic::{async_trait, Status};
@@ -65,7 +65,7 @@ pub struct AuthInterceptor<A: AuthService> {
 
 #[async_trait]
 impl<A: AuthService> RequestInterceptor for AuthInterceptor<A> {
-    async fn intercept(&self, mut req: Request<BoxBody>) -> Result<Request<BoxBody>, Status> {
+    async fn intercept(&self, mut req: Request<Body>) -> Result<Request<Body>, Status> {
         match req.headers().get("authorization").map(|v| v.to_str()) {
             Some(Ok(token)) => {
                 // Get user id from the token
@@ -95,11 +95,7 @@ where
     S: ServiceBound,
     S::Future: Send,
 {
-    async fn call(
-        &self,
-        req: Request<BoxBody>,
-        mut service: S,
-    ) -> Result<Response<BoxBody>, S::Error> {
+    async fn call(&self, req: Request<Body>, mut service: S) -> Result<Response<Body>, S::Error> {
         let start_time = Instant::now();
         // Call the service. You can also intercept request from middleware.
         let result = service.call(req).await?;

@@ -3,7 +3,7 @@ use std::task::{Context, Poll};
 use crate::ServiceBound;
 use async_trait::async_trait;
 use futures_util::future::BoxFuture;
-use tonic::body::BoxBody;
+use tonic::body::Body;
 use tonic::codegen::http::Request;
 use tonic::codegen::http::Response;
 use tonic::codegen::Service;
@@ -42,7 +42,7 @@ where
     ///
     /// A `Result` containing the response from the service or an error if one occurred
     /// during processing.
-    async fn call(&self, req: Request<BoxBody>, service: S) -> Result<Response<BoxBody>, S::Error>;
+    async fn call(&self, req: Request<Body>, service: S) -> Result<Response<Body>, S::Error>;
 }
 
 /// `MiddlewareFor` is a service wrapper that pairs a middleware with its target service.
@@ -77,7 +77,7 @@ where
     }
 }
 
-impl<S, M> Service<Request<BoxBody>> for MiddlewareFor<S, M>
+impl<S, M> Service<Request<Body>> for MiddlewareFor<S, M>
 where
     S: ServiceBound,
     S::Future: Send,
@@ -91,7 +91,7 @@ where
         self.inner.poll_ready(cx)
     }
 
-    fn call(&mut self, req: Request<BoxBody>) -> Self::Future {
+    fn call(&mut self, req: Request<Body>) -> Self::Future {
         let middleware = self.middleware.clone();
         let inner = self.inner.clone();
         Box::pin(async move { middleware.call(req, inner).await })

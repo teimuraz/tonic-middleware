@@ -4,7 +4,7 @@ use crate::proto::test_services::{
     ProtectedMethodRequest, ProtectedMethodResponse, PublicMethodRequest, PublicMethodResponse,
 };
 use std::sync::{Arc, Mutex};
-use tonic::body::BoxBody;
+use tonic::body::Body;
 use tonic::codegen::http::HeaderValue;
 use tonic::{async_trait, Request, Response, Status};
 use tonic_middleware::{Middleware, RequestInterceptor, ServiceBound};
@@ -59,8 +59,8 @@ pub struct AuthInterceptor {
 impl RequestInterceptor for AuthInterceptor {
     async fn intercept(
         &self,
-        mut req: tonic::codegen::http::Request<BoxBody>,
-    ) -> Result<tonic::codegen::http::Request<BoxBody>, Status> {
+        mut req: tonic::codegen::http::Request<Body>,
+    ) -> Result<tonic::codegen::http::Request<Body>, Status> {
         self.flow.add_action(Action::AuthInterceptor);
         match req
             .headers()
@@ -98,8 +98,8 @@ pub struct Interceptor2 {
 impl RequestInterceptor for Interceptor2 {
     async fn intercept(
         &self,
-        req: tonic::codegen::http::Request<BoxBody>,
-    ) -> Result<tonic::codegen::http::Request<BoxBody>, Status> {
+        req: tonic::codegen::http::Request<Body>,
+    ) -> Result<tonic::codegen::http::Request<Body>, Status> {
         self.flow.add_action(Action::Interceptor2);
         Ok(req)
     }
@@ -124,9 +124,9 @@ where
 {
     async fn call(
         &self,
-        req: tonic::codegen::http::Request<BoxBody>,
+        req: tonic::codegen::http::Request<Body>,
         mut service: S,
-    ) -> Result<tonic::codegen::http::Response<BoxBody>, S::Error> {
+    ) -> Result<tonic::codegen::http::Response<Body>, S::Error> {
         self.flow.add_action(Action::Middleware1Before);
         let result = service.call(req).await?;
         self.flow.add_action(Action::Middleware1After);
