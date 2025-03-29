@@ -95,11 +95,7 @@ where
     S: ServiceBound,
     S::Future: Send,
 {
-    async fn call(
-        &self,
-        req: Request<Body>,
-        mut service: S,
-    ) -> Result<Response<Body>, S::Error> {
+    async fn call(&self, req: Request<Body>, mut service: S) -> Result<Response<Body>, S::Error> {
         let start_time = Instant::now();
         // Call the service. You can also intercept request from middleware.
         let result = service.call(req).await?;
