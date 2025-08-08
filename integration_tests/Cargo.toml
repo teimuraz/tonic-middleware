@@ -7,16 +7,17 @@ edition = "2021"
 path = "src/lib.rs"
 
 [dependencies]
-tokio = { version = "1.36.0",  features = ["rt-multi-thread", "macros"] }
-tonic = "0.13.0"
-prost = "0.13.1"
+tokio = { version = "1.47.1",  features = ["rt-multi-thread", "macros"] }
+tonic = "0.14"
+tonic-prost = "0.14"
+prost = "0.14"
 
 [dependencies.tonic-middleware]
 path = ".."
 
 [build-dependencies]
-tonic-build = "0.13.0"
+tonic-prost-build = "0.14"
 
 [dev-dependencies]
-tokio = { version = "1.36.0", features = ["full", "test-util"] }
-serial_test = "3.0.0"
+tokio = { version = "1.4", features = ["full", "test-util"] }
+serial_test = "3.2.0"

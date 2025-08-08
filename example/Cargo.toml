@@ -12,12 +12,12 @@ name = "client"
 path = "src/client.rs"
 
 [dependencies]
-tokio = { version = "1.36.0",  features = ["rt-multi-thread", "macros"] }
-tonic = "0.13.0"
-prost = "0.13.1"
+tokio = { version = "1.47.1",  features = ["rt-multi-thread", "macros"] }
+tonic = "0.14.1"
+prost = "0.14.1"
 
 [dependencies.tonic-middleware]
 path = ".."
 
 [build-dependencies]
-tonic-build = "0.13.0"
+tonic-build = "0.14.1"
