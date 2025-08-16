@@ -14,10 +14,11 @@ path = "src/client.rs"
 [dependencies]
 tokio = { version = "1.47.1",  features = ["rt-multi-thread", "macros"] }
 tonic = "0.14.1"
+tonic-prost = "0.14.1"
 prost = "0.14.1"
 
 [dependencies.tonic-middleware]
 path = ".."
 
 [build-dependencies]
-tonic-build = "0.14.1"
+tonic-prost-build = "0.14.1"

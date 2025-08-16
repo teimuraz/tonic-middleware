@@ -50,13 +50,14 @@ through Tonic's layer.
 | 0.11          | 0.1.4                    |                                                                                                                                                                           |
 | 0.12.x        | 0.2.x                    | Breaking changes <br/> resulting from breaking changes in tonic. <br/>See [changelog](https://github.com/teimuraz/tonic-middleware/releases/tag/v0.2.0) for more details. |
 | 0.13.x        | 0.3.x                    | Breaking changes <br/> resulting from breaking changes in tonic.                                                                                                          |
+| 0.14.x        | 0.4.x                    | Breaking changes <br/> resulting from breaking changes in tonic. <br/>See [changelog](https://github.com/hyperium/tonic/releases/tag/v0.14.0) for more details. |
 
 
 ## Usage
 
 Add to Cargo.toml
 ```
-tonic-middleware = "0.3.0"
+tonic-middleware = "0.4.0"
 ```
 
 See full [example](https://github.com/teimuraz/tonic-middleware/tree/main/example) or check [integration tests](https://github.com/teimuraz/tonic-middleware/blob/main/integration_tests/tests/tests.rs)

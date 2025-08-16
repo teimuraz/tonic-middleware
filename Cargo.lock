@@ -168,8 +168,9 @@ dependencies = [
  "prost",
  "tokio",
  "tonic",
- "tonic-build",
  "tonic-middleware",
+ "tonic-prost",
+ "tonic-prost-build",
 ]
 
 [[package]]
@@ -1032,7 +1033,7 @@ dependencies = [
 
 [[package]]
 name = "tonic-middleware"
-version = "0.3.0"
+version = "0.4.0"
 dependencies = [
  "async-trait",
  "futures-util",
